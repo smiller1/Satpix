@@ -5,11 +5,19 @@ public class Satpix {
 
 	public static void main(String[] args) throws IOException
 	{
-		boolean[][] booleanArr = fileToBoolArray("satpix.in");
-		int sizeOfLargestPasture;
-		
-		//fileToBoolArray("satpix.in");
-		//recursivelyMeasureAndMarkPasture(row, int col, boolean[][] booleanArray)
+		boolean[][] booleanArray = fileToBoolArray("satpix.in");
+		int sizeOfLargestPasture = 0;
+		int currentSize = 0;
+		for (int i = 0; i < booleanArray.length; i++) {
+			
+			for (int j = 0; j < booleanArray[0].length; j++) {
+				currentSize = recursivelyMeasureAndMarkPasture(i, j, booleanArray);
+				
+				if (currentSize > sizeOfLargestPasture) {
+					sizeOfLargestPasture = currentSize;
+				}
+			}
+		}
 		
 		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("satpix.out")));
 		out.println(sizeOfLargestPasture);
@@ -29,33 +37,33 @@ public class Satpix {
 		// create 2D boolean array
 		int col = scan.nextInt();
 		int row = scan.nextInt();
-		boolean[][] booleanArray = new boolean[row][col];
+		boolean[][] arr = new boolean[row][col];
 		
 		// fill in 2D boolean array
 		for (int i = 0; i < row; i++) {
 			for (int j = 0; j < col; j++) {
 				if (fr.read() == ('*'))
-					booleanArray[i][j] = true;
+					arr[i][j] = true;
 				
 				if (fr.read() == ('.'))
-					booleanArray[i][j] = false;
+					arr[i][j] = false;
 			}
 		}
 		
-		return booleanArray;
+		return arr;
 	}
 
-	private static int recursivelyMeasureAndMarkPasture(int row, int col, boolean[][] booleanArray)
+	private static int recursivelyMeasureAndMarkPasture(int row, int col, boolean[][] arr)
 	{
 		int pastureSize = 0;
-		if (row >= 0 && col >= 0 && row < booleanArray.length && col < booleanArray[0].length && booleanArray[row][col] == true)
+		if (row >= 0 && col >= 0 && row < arr.length && col < arr[0].length && arr[row][col] == true)
 		{
-			booleanArray[row][col] = false;
-			pastureSize=1 +
-				recursivelyMeasureAndMarkPasture(row - 1, col, booleanArray) +
-				recursivelyMeasureAndMarkPasture(row + 1, col, booleanArray) +
-				recursivelyMeasureAndMarkPasture(row, col + 1, booleanArray) +
-				recursivelyMeasureAndMarkPasture(row, col - 1, booleanArray);
+			arr[row][col] = false;
+			pastureSize = 1 +
+				recursivelyMeasureAndMarkPasture(row - 1, col, arr) +
+				recursivelyMeasureAndMarkPasture(row + 1, col, arr) +
+				recursivelyMeasureAndMarkPasture(row, col + 1, arr) +
+				recursivelyMeasureAndMarkPasture(row, col - 1, arr);
 		}
 		
 		return pastureSize ;
