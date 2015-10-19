@@ -8,7 +8,8 @@ public class Satpix {
 		boolean[][] booleanArr = fileToBoolArray("satpix.in");
 		int sizeOfLargestPasture;
 		
-		/* YOUR CODE GOES HERE */
+		//fileToBoolArray("satpix.in");
+		//recursivelyMeasureAndMarkPasture(row, int col, boolean[][] booleanArray)
 		
 		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("satpix.out")));
 		out.println(sizeOfLargestPasture);
@@ -40,13 +41,24 @@ public class Satpix {
 					booleanArray[i][j] = false;
 			}
 		}
+		
+		return booleanArray;
 	}
 
-	private static int recursivelyMeasureAndMarkPasture(int row, int col, boolean[][] arr)
+	private static int recursivelyMeasureAndMarkPasture(int row, int col, boolean[][] booleanArray)
 	{
-		//This recursive method employs the flood-fill algorithm to
-		//count the size of a single pasture and "mark" it so it is not double-counted
-		return 0;
+		int pastureSize = 0;
+		if (row >= 0 && col >= 0 && row < booleanArray.length && col < booleanArray[0].length && booleanArray[row][col] == true)
+		{
+			booleanArray[row][col] = false;
+			pastureSize=1 +
+				recursivelyMeasureAndMarkPasture(row - 1, col, booleanArray) +
+				recursivelyMeasureAndMarkPasture(row + 1, col, booleanArray) +
+				recursivelyMeasureAndMarkPasture(row, col + 1, booleanArray) +
+				recursivelyMeasureAndMarkPasture(row, col - 1, booleanArray);
+		}
+		
+		return pastureSize ;
 	}
 	
 }
