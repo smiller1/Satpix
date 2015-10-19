@@ -33,10 +33,10 @@ public class Satpix {
 		// fill in 2D boolean array
 		for (int i = 0; i < row; i++) {
 			for (int j = 0; j < col; j++) {
-				if (fr.read().equals('*'))
+				if (fr.read() == ('*'))
 					booleanArray[i][j] = true;
 				
-				if (fr.read().equals('.'))
+				if (fr.read() == ('.'))
 					booleanArray[i][j] = false;
 			}
 		}
