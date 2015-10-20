@@ -4,8 +4,10 @@ import java.util.*;
 public class Satpix {
 
 	public static void main(String[] args) throws IOException {
+		// convert the input file into an array of booleans.
 		boolean[][] booleanArray = fileToBoolArray("satpix.txt");
 
+		// create variables needed to find largest pasture
 		int sizeOfLargestPasture = 0;
 		int currentSize = 0;
 		
