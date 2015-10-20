@@ -1,3 +1,5 @@
+/** done by Spencer Miller and Jack Li**/ 
+
 import java.io.*;
 import java.util.*;
 
@@ -22,14 +24,15 @@ public class Satpix {
 				}
 			}
 		}
-
+		
+		// print the largest pasture (should be 16)
 		System.out.println(sizeOfLargestPasture);
 
 		// print the size of largest pasture to a file "satpix.out"
 		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("satpix.out")));
 		out.println(sizeOfLargestPasture);
 		
-		
+		// close the PrintWriter
 		out.close();
 	}
 
@@ -45,11 +48,14 @@ public class Satpix {
 
 		// fill in 2D boolean array
 		for (int i = 0; i < row; i++) {
+			
 			String str = new String(scan.next());
 			for (int j = 0; j < col; j++) {
+				
 				if (str.charAt(j) == ('*')) {
 					arr[i][j] = true;
-				} else {
+				} 
+				else {
 					arr[i][j] = false;
 				}
 			}
@@ -61,15 +67,21 @@ public class Satpix {
 	}
 
 	private static int recursivelyMeasureAndMarkPasture(int row, int col, boolean[][] arr) {
-
+		
+		// test if the element is inside the area, and then if it is part of a pasture 
 		if (row >= 0 && col >= 0 && row < arr.length && col < arr[0].length && arr[row][col] == true) {
+			
+			// change it to false (non-pasture) so it is not counted twice
 			arr[row][col] = false;
+			
+			// recursion
 			return 1 + recursivelyMeasureAndMarkPasture(row + 1, col, arr)
 					+ recursivelyMeasureAndMarkPasture(row - 1, col, arr)
 					+ recursivelyMeasureAndMarkPasture(row, col + 1, arr)
 					+ recursivelyMeasureAndMarkPasture(row, col - 1, arr);
 		}
-
+		
+		// base case
 		return 0;
 	}
 
