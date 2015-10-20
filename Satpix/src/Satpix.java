@@ -8,6 +8,8 @@ public class Satpix {
 
 		int sizeOfLargestPasture = 0;
 		int currentSize = 0;
+		
+		//compare all pastures to find the largest one.
 		for (int i = 0; i < booleanArray.length; i++) {
 
 			for (int j = 0; j < booleanArray[i].length; j++) {
@@ -21,8 +23,11 @@ public class Satpix {
 
 		System.out.println(sizeOfLargestPasture);
 
+		// print the size of largest pasture to a file "satpix.out"
 		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("satpix.out")));
 		out.println(sizeOfLargestPasture);
+		
+		
 		out.close();
 	}
 
